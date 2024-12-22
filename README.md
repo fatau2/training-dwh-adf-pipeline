@@ -48,13 +48,19 @@ Data and Query Tasks
 
 ETL, Data Warehouse, and Analytics Tasks
 1. Employee Data in Azure SQL Server
-  a. Location: dataset/employee.json
+  a. Location in this repo: dataset/employee.json
+  b. Location in ADF: ![employee_dataset_location](https://github.com/user-attachments/assets/fc835b77-4caf-47cc-81cc-9e02e65dff31)
 3. Training History Data in Worksheet
-  a. Location: dataset/training_history.json
+  a. Location in this repo: dataset/training_history.json
+  b. Location in ADF: ![traininghistory_dataset_location](https://github.com/user-attachments/assets/4d84479f-8793-4a6c-af10-de685f76bfd9)
 
 5. ETL Flow compiling Employee Data and Training History Data in a Data Warehouse
-  a. Employee Pipeline: pipeline/DimEmployeePipeline.json
-  b. Training History Pipeline: pipeline/FactTrainingPipeline.json
+  a. Employee Pipeline:
+      i. Location in this repo: pipeline/DimEmployeePipeline.json
+      ii. Location in ADF: ![pipeline_dataset_location](https://github.com/user-attachments/assets/fc21099d-dfd2-4164-ba77-a87ea59df12d)
+  b. Training History Pipeline:
+      i. Location in this repo: pipeline/FactTrainingPipeline.json
+      ii. Location in ADF: (same as employee pipeline)
 
 7. Historical Training Data Report
    https://lookerstudio.google.com/reporting/ed5dd37e-7f1f-463f-be70-d306de1c557b/page/ZZBaE
