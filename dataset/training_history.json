@@ -1,0 +1,48 @@
+{
+	"name": "training_history",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TrainingHistoryGCS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "TRAINING_HIST",
+			"location": {
+				"type": "GoogleCloudStorageLocation",
+				"bucketName": "akasia-bucket-101",
+				"folderPath": "akasia/employee-training",
+				"fileName": "training.xlsx"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "no",
+				"type": "String"
+			},
+			{
+				"name": "employee_id",
+				"type": "String"
+			},
+			{
+				"name": "training",
+				"type": "String"
+			},
+			{
+				"name": "start_date",
+				"type": "String"
+			},
+			{
+				"name": "complete_date",
+				"type": "String"
+			},
+			{
+				"name": "outcome",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

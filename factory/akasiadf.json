@@ -1,0 +1,9 @@
+{
+	"name": "akasiadf",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3ad8c29e-8d18-4e6c-8fc0-c62e4f071412",
+		"tenantId": "afc8019f-ef0b-4fc5-a627-17a54110c616"
+	}
+}

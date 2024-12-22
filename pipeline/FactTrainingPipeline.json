@@ -1,0 +1,61 @@
+{
+	"name": "FactTrainingPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyTrainingHistoryToFactTraining",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "StoredProcedureClearTable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "FactTrainingDataFlow",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "StoredProcedureClearTable",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "ClearTables"
+				},
+				"linkedServiceName": {
+					"referenceName": "dwh",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-12-21T18:16:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

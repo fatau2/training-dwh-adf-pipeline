@@ -1,0 +1,43 @@
+{
+	"name": "fact_training",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dwh",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "TrainingID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmployeeID",
+				"type": "varchar"
+			},
+			{
+				"name": "Training",
+				"type": "varchar"
+			},
+			{
+				"name": "StartDate",
+				"type": "date"
+			},
+			{
+				"name": "CompleteDate",
+				"type": "date"
+			},
+			{
+				"name": "Outcome",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactTraining"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

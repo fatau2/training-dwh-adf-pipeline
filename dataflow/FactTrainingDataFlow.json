@@ -1,0 +1,86 @@
+{
+	"name": "FactTrainingDataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "training_history",
+						"type": "DatasetReference"
+					},
+					"name": "Training"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "fact_training",
+						"type": "DatasetReference"
+					},
+					"name": "FactTraining"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectColumns"
+				},
+				{
+					"name": "OutcomeDerivedColumn"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          no as string,",
+				"          employee_id as string,",
+				"          training as string,",
+				"          start_date as string,",
+				"          complete_date as string,",
+				"          outcome as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Training",
+				"OutcomeDerivedColumn select(mapColumn(",
+				"          no,",
+				"          employee_id,",
+				"          training,",
+				"          start_date,",
+				"          complete_date,",
+				"          outcome",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectColumns",
+				"Training derive(outcome = iif(outcome=='PASS',1,0),",
+				"          start_date = toDate(start_date, 'yyyy-MM-dd'),",
+				"          complete_date = toDate(complete_date, 'yyyy-MM-dd')) ~> OutcomeDerivedColumn",
+				"SelectColumns sink(allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TrainingID as integer,",
+				"          EmployeeID as string,",
+				"          Training as string,",
+				"          StartDate as date,",
+				"          CompleteDate as date,",
+				"          Outcome as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          TrainingID = no,",
+				"          EmployeeID = employee_id,",
+				"          Training = training,",
+				"          StartDate = start_date,",
+				"          CompleteDate = complete_date,",
+				"          Outcome = outcome",
+				"     )) ~> FactTraining"
+			]
+		}
+	}
+}
