@@ -46,6 +46,31 @@ Data and Query Tasks
     ('50004', 'IT Admin', '10105003', '2022-01-01', '2022-02-28'),
     ('50005', 'IT Secretary', '10105003', '2022-03-01', '2022-12-31');
 
+3. Query to display all employees with their current position information
+     SELECT
+      e.EmployeeId,
+      e.FullName,
+      e.BirthDate,
+      e.Address,
+      f.PosId,
+      f.PosTitle,
+      f.StartDate,
+      f.EndDate
+  FROM
+      Employee e
+  LEFT JOIN
+  (
+      SELECT 
+          *,
+          RANK() OVER (PARTITION BY EmployeeId ORDER BY StartDate DESC) AS IsCurrentPosition
+      FROM
+          PositionHistory
+  ) AS f
+  ON
+     e.EmployeeId = f.EmployeeId 
+  WHERE
+      IsCurrentPosition = 1 OR IsCurrentPosition IS NULL;
+   
 ETL, Data Warehouse, and Analytics Tasks
 1. Employee Data in Azure SQL Server
   a. Location in this repo: dataset/employee.json
